@@ -1,0 +1,490 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Chewy&display=swap" rel="stylesheet">
+  </head>
+
+<body>
+  <body style="background-color: #e7f5ff;">
+    <style>
+    .thread-card {
+      background-color: #e0ebff;
+      border-radius: 15px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    .search-button{
+      background-color:rgb(223, 223, 255);
+    } 
+  </style>
+  <div id="app"></div>
+
+  <script>
+  let page = 'home';
+  let threads = JSON.parse(localStorage.getItem('threads')) || [
+  {
+    id: 1,
+    title: 'What Classes should I take for an elective?',
+    homepreviewDescription: 'I need to take some electives, what are some interesting electives that I can take',
+    author: {username: 'TryMe200',
+      profilePic: 'https://i.pravatar.cc/50?u=jessie'//Got this websites that generates different pics from chatGpt
+    },
+    commentsPosts: [
+      {
+        username: 'Axxxx',
+        profilePic: 'https://i.pravatar.cc/50?u=alex',
+        content: 'Try ART.1001'
+      },
+      {
+        username: 'lolo',
+        profilePic: 'https://i.pravatar.cc/50?u=lolo',
+        content: 'PHIL.2103 easy A!'
+      },
+      {
+        username: 'mathGenius!',
+        profilePic: 'https://i.pravatar.cc/50?u=mathGenius',
+        content: 'MUSC.3077 the professor is very nice!'
+      },
+      {
+        username: 'qwereeeee',
+        profilePic: 'https://i.pravatar.cc/50?u=qwereeeee',
+        content: 'MATH.3077!!!'
+      },
+      ],
+    likes: 88,
+    liked: false,
+    comments: 4,
+  },
+  {
+    id: 2,
+    title: 'What Clubs to Join?',
+    homepreviewDescription: 'There are so many clubs!!! which one should I join?',
+    author: {username: 'bigeek',
+      profilePic: 'https://i.pravatar.cc/50?u=bigeek'
+    },
+    commentsPosts: [
+      {
+        username: 'abc',
+        profilePic: 'https://i.pravatar.cc/50?u=abc',
+        content: 'Try the math club'
+      },
+      {
+        username: 'minni',
+        profilePic: 'https://i.pravatar.cc/50?u=minni',
+        content: 'Nooo!! the animals club is the best!'
+      },
+      {
+        username: 'mint',
+        profilePic: 'https://i.pravatar.cc/50?u=mint',
+        content: 'you should definitly join the sleep club'
+      },
+      {
+        username: 'boohoo',
+        profilePic: 'https://i.pravatar.cc/50?u=boohoo',
+        content: 'anime club!'
+      },
+      {
+        username: 'vice',
+        profilePic: 'https://i.pravatar.cc/50?u=vice',
+        content: 'Dont Join any! We are the go home club!'
+      },
+    ],
+    likes: 20,
+    liked: false,
+    comments: 6,
+  },
+  {
+    id: 3,
+    title: 'Does Anyone know if we have intership fairs?',
+    homepreviewDescription: 'Hi people! I need some interships!!!',
+    author: {username: 'hotri',
+      profilePic: 'https://i.pravatar.cc/50?u=hotri'
+    },
+    commentsPosts: [
+      {
+        username: 'acreers',
+        profilePic: 'https://i.pravatar.cc/50?u=acreers',
+        content: 'It\'s next week'
+      },
+      {
+        username: 'Hesitar',
+        profilePic: 'https://i.pravatar.cc/50?u=Hesitar',
+        content: 'Do you have your resume? and everything?'
+      },
+      {
+        username: 'hotri',
+        profilePic: 'https://i.pravatar.cc/50?u=hotri',
+        content: 'yea! I\'m so ready'
+      },
+      {
+        username: 'Mcftsom',
+        profilePic: 'https://i.pravatar.cc/50?u=Mcftsom',
+        content: 'WHAT? NEXT WEEK?!!!'
+      },
+      {
+        username: 'JimPira',
+        profilePic: 'https://i.pravatar.cc/50?u=JimPira',
+        content: 'looks like someone did\'t know...haha'
+      },
+      {
+        username: 'Zaibra',
+        profilePic: 'https://i.pravatar.cc/50?u=Zaibra',
+        content: 'are ya\'ll ready for the interview?'
+      },
+    ],
+    likes: 35,
+    liked: false,
+    comments: 6,
+  },
+  {
+    id: 4,
+    title: 'Is anyone taking Professor smith\'s MATH 3086? I NEED HELP!!!',
+    homepreviewDescription: 'Someone help me on question #200 on his homework#4!!!',
+    author: {username: 'idk',
+      profilePic: 'https://i.pravatar.cc/50?u=idk'
+    },
+    commentsPosts: [
+      {
+        username: 'allU',
+        profilePic: 'https://i.pravatar.cc/50?u=allU',
+        content: 'what\'s the question? I\'m not in his class but maybe I can help'
+      },
+      {
+        username: 'coolingC',
+        profilePic: 'https://i.pravatar.cc/50?u=coolingC',
+        content: 'I need help too!!! I am in the same class!!'
+      },
+      {
+        username: 'mincccc',
+        profilePic: 'https://i.pravatar.cc/50?u=mincccc',
+        content: 'IT\'S SO HARD!!!'
+      },
+      {
+        username: 'limeS?!!?',
+        profilePic: 'https://i.pravatar.cc/50?u=limeS?!!?',
+        content: 'First you do this, then you do that... EASY!'
+      },
+      {
+        username: 'whattt',
+        profilePic: 'https://i.pravatar.cc/50?u=whattt',
+        content: 'YEA, you first do this and then you do that'
+      },
+      ],
+    likes: 78,
+    liked: false,
+    comments: 5,
+  },
+  {
+    id: 5,
+    title: 'Did someone lost their phone?',
+    homepreviewDescription: 'Found a phone in the library, if its yours dm me',
+    author: {username: 'KizZennaaa',
+      profilePic: 'https://i.pravatar.cc/50?u=KizZennaaa'
+    },
+    commentsPosts: [
+      {
+        username: 'Estra',
+        profilePic: 'https://i.pravatar.cc/50?u=Estra',
+        content: 'MINE!!!'
+      },
+      {
+        username: 'KizZennaaa',
+        profilePic: 'https://i.pravatar.cc/50?u=KizZennaaa',
+        content: '? Tell me how it looks like'
+      },
+      {
+        username: 'Thursaaday',
+        profilePic: 'https://i.pravatar.cc/50?u=Thursaaday',
+        content: 'No! its MINE!'
+      },
+      {
+        username: 'Cameramannn',
+        profilePic: 'https://i.pravatar.cc/50?u=Cameramannn',
+        content: 'You guys are all fooling around...It\'s actually me!!!'
+      },
+      {
+        username: 'WaterBAAAA',
+        profilePic: 'https://i.pravatar.cc/50?u=WaterBAAAA',
+        content: 'HAHA U all funny, it\'s mine!'
+      },
+      {
+        username: 'KizZennaaa',
+        profilePic: 'https://i.pravatar.cc/50?u=KizZennaaa',
+        content: '????you guys are all trying to get a free phone? For real, if its yours dm me!'
+      },
+      ],
+    likes: 150,
+    liked: false,
+    comments: 6,
+  },
+  {
+    id: 6,
+    title: 'NO CLASS TOMRR',
+    homepreviewDescription: 'It\'s true',
+    author: {username: 'Kuzume25807',
+      profilePic: 'https://i.pravatar.cc/50?u=Kuzume25807'
+    },
+    commentsPosts: [
+      {
+        username: 'Hintaaa6654',
+        profilePic: 'https://i.pravatar.cc/50?u=Hintaaa6654',
+        content: 'YOU LIED!'
+      },
+      {
+        username: 'Kuroturo2222',
+        profilePic: 'https://i.pravatar.cc/50?u=Kuroturo2222',
+        content: 'April Fools is over!!!'
+      },
+      {
+        username: 'gamer80056',
+        profilePic: 'https://i.pravatar.cc/50?u=gamer80056',
+        content: 'HAHA so funny'
+      },
+      ],
+    likes: 30,
+    liked: false,
+    comments: 3,
+  },
+];
+
+  let threadTitle = '';
+  let description = '';
+  let selectedThread = null;
+  let newPost = '';// variable for users new replies
+  let searchVar = '';  // stores search inputed by the user
+
+  // Save threads to localStorage
+  function saveThreads() {
+    localStorage.setItem('threads', JSON.stringify(threads));
+  }
+
+  // Home page
+  //learned to how to create each page from ChatGPT
+
+  function goHome() {
+    //used to fiter out the threads that include the search input(searchvar).
+    //the search button on the button when clicked will call search() function then the function will set the 
+    //search var to the input and the it'll call gohome and come here for filtering.
+    //Learned to filter from stackoverflow
+    const filteredThePosts = threads.filter(thread =>
+      thread.title.toLowerCase().includes(searchVar.toLowerCase()) || 
+      thread.homepreviewDescription.toLowerCase().includes(searchVar.toLowerCase())
+    );
+    const web = document.getElementById('app');  
+    app.innerHTML = `
+      <div class="container mt-5">
+      <div class="d-flex justify-content-between align-items-center mb-4">
+      <h1 class="mb-0" style="font-size: 45px; font-family: 'Chewy', cursive;">BC Forum</h1>
+      <div style="width: 350px;">
+      <div class="input-group">
+       <input type="text" id="searchInput" placeholder="Search..." class="form-control" style="border-radius: 10px; border: 1px solid #ccc; width: 200px; height: 50px;" value="${searchVar}">
+      <button onclick="search()" class="btn btn-secondary search-button">
+      <img src="search2.png" alt="Search Icon" style="border-radius: 20px; width: 30px; height: 30px;">
+      </button>
+      </div>
+      </div>
+        </div>
+        ${filteredThePosts.map(thread => `
+          <div class="card mb-3 thread-card" onclick="viewThread(${thread.id})">
+            <div class="card-body">
+              <h5 class="card-title">${thread.title}</h5>
+              <p class="card-text">${thread.homepreviewDescription}</p>
+              <div>
+                <button class="like-btn" onclick="likeAndUnLike(${thread.id}, event)">
+                  <i class="heart ${thread.liked ? 'liked' : ''}">${thread.liked ? '❤️' : '♡'}</i> ${thread.likes}
+                </button>
+                <button class="comments-btn" onclick="viewThread(${thread.id})">
+                  💬 ${thread.comments}
+                </button>
+              </div>
+            </div>
+          </div>
+        `).join('')}
+        <button class="btn btn-primary mt-3 me-2" style = "font-size: 20px; font-family: 'Chewy', cursive;" onclick="goToPage('threads')">Create Threads</button>
+        <button class="btn btn-secondary mt-3" style = "font-size:20px; font-family: 'Chewy', cursive;"onclick="goToPage('resources')">BC Resources</button>
+      </div>
+    `;
+  }
+
+  // Search function
+  function search() {
+    searchVar = document.getElementById('searchInput').value;
+    goHome();  // updates home and make the search results appear in home only
+  }
+
+
+  // Page where the user can create the new thread
+  function createThreads() {
+    const app = document.getElementById('app');
+    app.innerHTML = `
+      <div class="container mt-5">
+        <h2 style = "font-size: 45px; font-family: 'Chewy', cursive;">Create Thread</h2>
+        <input type="text" id="threadTitle" placeholder="Title" class="form-control my-2" />
+        <textarea id="description" placeholder="Description" class="form-control my-2"></textarea>
+        <input type="text" id="newThreadImage" placeholder="DROP IMAGE HERE OR ENTER THE URL" class="form-control my-2" />
+        <div class="d-flex justify-content-between my-2">
+        <button class="btn btn-outline-primary ms-2" style = "font-size: 20px; font-family: 'Chewy', cursive;" onclick="goToPage('home')">🔙 Home</button>
+        <button class="btn btn-success" style = "font-size: 20px; font-family: 'Chewy', cursive;" onclick="makeNewThreadsFormatInHome()">Submit</button>
+        </div>
+      </div>
+    `;
+  }
+
+  // formats the thread/posts page 
+  function openPosts() {
+  const thread = selectedThread;
+    app.innerHTML = `
+      <div class="container mt-5">
+        <div class="d-flex align-items-center mb-3">
+          <img src="${thread.author.profilePic}" class="rounded-circle me-2" width="40" height="40" />
+          <h5 class="mb-0">${thread.author.username}</h5>
+        </div>
+        <h2>${thread.title}</h2>
+        <p>${thread.homepreviewDescription}</p>
+        <div class="mb-3" >
+         ${thread.commentsPosts.map(post => `
+            <div class="card mb-2">
+              <div class="card-body d-flex align-items-start" style ="background-color: #e0ebff;">
+                <img src="${post.profilePic}" class="rounded-circle me-3 mt-1" width="40" height="40" />
+                <div>
+                  <strong>${post.username}</strong>
+                  <p class="mb-0">${post.content}</p>
+                </div>
+              </div>
+            </div>
+          `).join('')}
+        </div>
+
+        <div class="d-flex my-2">
+          <textarea id="newPost" style ="background-color: #e0ebff;" placeholder="Write a reply..." class="form-control my-2"></textarea>
+        </div>
+        <div class="d-flex justify-content-between my-2">
+        <button class="btn btn-outline-primary mt-2" style = "font-size: 20px; font-family: 'Chewy', cursive;" onclick="goToPage('home')">🔙 Home</button>
+        <button class="btn btn-primary ms-auto"style = "font-size: 20px; font-family: 'Chewy', cursive;" onclick="addCommentToPosts()">Reply</button>
+        </div>
+      </div>
+    `;
+  }
+
+  // The resources page, includes hyperlinks that leads to the BC websites 
+  function openResources() {
+    const app = document.getElementById('app');
+    app.innerHTML = `
+      <div class="container mt-5">
+        <h2 style = "font-size: 45px; font-family: 'Chewy', cursive;">BC Resources</h2>
+          <li class="list-group-item" style ="background-color: #e0ebff;";><a href="https://www.brooklyn.edu/academics/resources/" target="_blank">General Resources Page</a></li>
+          <li class="list-group-item" style ="background-color: #e0ebff;"><a href="https://www.brooklyn.edu/bookstore/" target="_blank">Online Book Store</a></li>
+          <li class="list-group-item" style ="background-color: #e0ebff;"><a href="https://www.brooklyn.edu/lc/" target="_blank">Learning Center</a></li>
+          <li class="list-group-item" style ="background-color: #e0ebff;"><a href="https://www.brooklyn.edu/dosa/health-and-wellness/personal-counseling/" target="_blank">Counseling Services</a></li>
+          <li class="list-group-item" style ="background-color: #e0ebff;"><a href="https://www.brooklyn.edu/admissions-aid/financial-aid-scholarships/" target="_blank">Financial Aid Office</a></li>
+          <li class="list-group-item" style ="background-color: #e0ebff;"><a href="https://www.brooklyn.edu/iss/" target="_blank">Office of International Student</a></li>
+          <li class="list-group-item" style ="background-color: #e0ebff;"><a href="https://www.brooklyn.edu/its/" target="_blank">BC Tech Support</a></li>
+          <li class = "list-group-item" style ="background-color: #e0ebff;">
+            <h3>National HelpLine</h3>
+            <p>National Help Line: 1-800-662-HELP (4357)</p>
+            <p>988 Suicide & Crisis Lifeline: Text 988 or call 988</p></li>
+        <button class="btn btn-outline-primary mt-4"  style = "font-size: 20px; font-family: 'Chewy', cursive;" onclick="goToPage('home')"> 🔙 Home </button>
+      </div>
+    `;
+  }
+
+  // The function that brings or go to certain page based on the conditions
+  //learned how to go from each page using switch, case from Gen AI
+  function goToPage(newPage) {
+    page = newPage;
+    switch(page) {
+      case 'home':
+        goHome();
+        break;
+    case 'threads':
+        createThreads();
+        break;
+    case 'post':
+        openPosts();
+        break;
+    case 'resources':
+        openResources();
+        break;
+    default:
+        goHome();
+    }
+  }
+
+  // View thread, finds the thread based on the id, and then opens the thread/post page
+  //go the .find method in the geeks for geeks JS array methods
+  function viewThread(id) {
+    selectedThread = threads.find(thread => thread.id === id);
+    goToPage('post');
+  }
+
+  // Creating a new thread based on user input
+  function makeNewThreadsFormatInHome() {
+    threadTitle = document.getElementById('threadTitle').value;
+    description = document.getElementById('description').value;
+    const imageUrl = document.getElementById('newThreadImage').value;
+    //formats each new thread created
+    if (threadTitle.trim() && description.trim()) {
+      const newThreadData = {
+        id: Date.now(),//uses this to generate a unique id for the new thread
+        title: threadTitle,
+        homepreviewDescription: description,
+        image: imageUrl || null,
+        commentsPosts: [],
+        likes: 0,
+        liked: false,
+        comments: 0,
+      };
+      threads.push(newThreadData);//pushes it into the arr
+      saveThreads();  // Save it to local storage
+      goToPage('home'); //updates the change
+    }
+  }
+
+  //User's add comment function
+  //adds it to the commentsposts section of the array, kind of works the same way as the creating of the new threads
+  function addCommentToPosts() {
+    newPost = document.getElementById('newPost').value;
+    //gets the values from the textarea
+    //uses the formatting of the comments posts and then save it to local storage
+    if (newPost.trim()) {
+      selectedThread.commentsPosts.push({
+        username: 'You',
+        profilePic: 'userProfile.jpeg', 
+        content: newPost
+      });
+      selectedThread.comments++;//increases the number of comments in the comments wariable for each thread in the arr
+      saveThreads();
+      goToPage('post'); //updates the changes
+    }
+  }
+
+  // Allows user to like or unlike
+  //Gen AI
+  function likeAndUnLike(threadId, event) {
+    event.stopPropagation(); // Prevents users from clicking on the thrad page
+    const thread = threads.find(t => t.id === threadId);
+    if (thread) {
+      if (thread.liked) {
+        // undo
+        thread.likes--;
+        thread.liked = false;
+      } 
+      else {
+        // Like
+        thread.likes++;
+        thread.liked = true;
+      }
+      saveThreads(); 
+      goToPage('home'); //update changes in home
+    }
+  }
+    // call to load/show the home page
+    goToPage('home');
+  </script>
+</body>
+</html>
